@@ -82,20 +82,18 @@ class App extends Component{
     else CC = []
     return (
       <div className="main">
-        <h1>LET'S FUCKING STUDY</h1>
+        <h1>STUDY FLASH CARDS</h1>
         <form>
           <input type="text" value={this.state.newSubj} onChange={(e)=>this.updateNewSubj(e.target.value)}/>
           <button onClick={(e)=>this.addSubj(e)}>Add Subject</button>
         </form>
-        <div>
+        <div className="subjectsDiv">
           {buttons}
         </div>
-        <div>
-          Current Subject {this.state.currentSubj}
+        <div className="currentSubject">
+          Showing Cards for Subject: {this.state.currentSubj}
         </div>
-        <div>
-          <FlashCards newCards={this.state.newCard} newCardUpdate={this.updateNewCard} addNewCard={this.addNewCard} currentCards={CC}/>
-        </div>
+        <FlashCards newCards={this.state.newCard} newCardUpdate={this.updateNewCard} addNewCard={this.addNewCard} currentCards={CC}/>
       </div>
 )}
 }
@@ -103,8 +101,8 @@ class App extends Component{
 class Subject extends Component{
   render() {
     return (
-      <div>
-        <input value={this.props.subject} type="radio" name="subjGroup" onChange={(e)=>this.props.subjClick(e.target.value)}>
+      <div className="subjects">
+        <input className="option" value={this.props.subject} type="radio" name="subjGroup" onChange={(e)=>this.props.subjClick(e.target.value)}>
         </input>
         <label>
           {this.props.subject}
@@ -123,7 +121,7 @@ class FlashCards extends Component{
       }
     }
     return (
-      <div>
+      <div className="flashCards">
       <form>
         <label>Question</label>
         <input type="text" value={this.props.newCards[0]} onChange={(e, idx)=>this.props.newCardUpdate(e.target.value, 0)}/>
