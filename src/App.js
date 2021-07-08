@@ -19,7 +19,6 @@ class App extends Component{
   }
 
   updateNewSubj(newVal){
-    console.log(newVal)
     this.setState({
       newSubj: newVal
     });
@@ -82,7 +81,7 @@ class App extends Component{
     }
     else CC = []
     return (
-      <div>
+      <div className="main">
         <h1>LET'S FUCKING STUDY</h1>
         <form>
           <input type="text" value={this.state.newSubj} onChange={(e)=>this.updateNewSubj(e.target.value)}/>
@@ -132,7 +131,9 @@ class FlashCards extends Component{
         <input type="text" value={this.props.newCards[1]} onChange={(e, idx)=>this.props.newCardUpdate(e.target.value, 1)}/>
         <button onClick={(e)=>this.props.addNewCard(e)}>Create New Flash Card</button>
       </form>
-      {cards}
+      <div className="cardsHolder">
+        {cards}
+      </div>
       </div>
     )
   }
@@ -142,9 +143,20 @@ class FlashCards extends Component{
 class Card extends Component {
   render(){
     return(
-      <div>
-        <h1>{this.props.value[0]}</h1>
+      // <div className="card">
+      //   <h1>{this.props.value[0]}</h1>
+      // </div>
+  <div className="flip-card">
+    <div className="flip-card-inner">
+      <div className="flip-card-front">
+        <h2>{this.props.value[0]}</h2>
       </div>
+      <div className="flip-card-back">
+        <h2>{this.props.value[1]}</h2>
+      </div>
+    </div>
+  </div>
+      
     )
   }
 }
