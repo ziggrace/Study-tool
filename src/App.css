@@ -1,5 +1,15 @@
+body {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background-color:#08B6CE;
+}
+
 .App {
   text-align: center;
+  justify-content: center;
+  align-items: center;
+  background-color:rgb(255, 0, 0);
 }
 
 .App-logo {
