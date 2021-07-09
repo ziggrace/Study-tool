@@ -2,6 +2,9 @@ import './App.css';
 import React, { Component } from "react";
 import { render } from "react-dom";
 
+const currentUser = "ziggy1" 
+let currentUserFound = false
+
 class App extends Component{
   constructor(){
     super()
@@ -18,10 +21,45 @@ class App extends Component{
     this.addNewCard = this.addNewCard.bind(this);
   }
 
+  componentDidMount() {
+    fetch(`/api?user=${currentUser}`)
+      .then(res => res.json())
+      .then((state) => {
+      let stateData = state
+      // if (!Array.isArray(characters)) characters = [];
+  
+      // return this.setState({
+      //   characters,
+      //   fetchedChars: true
+      // });
+      const { flashCards, subjects, currentSubj } = stateData.state
+      console.log(JSON.stringify(stateData.state))
+      console.log("cards: " + JSON.stringify(flashCards))
+      console.log("sub" + subjects)
+      if(flashCards && subjects){
+        currentUserFound = true
+        this.setState({
+          flashCards: flashCards,
+          subjects: subjects,
+          currentSubj: currentSubj
+        })
+      }
+    })
+    .catch(err => console.log('Characters.componentDidMount: get characters: ERROR: ', err));
+  }
+
+
   updateNewSubj(newVal){
     this.setState({
       newSubj: newVal
     });
+    // fetch('/api', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'Application/JSON'
+    //   },
+    //   body: JSON.stringify({user: currentUser, state: this.state})
+    // })
   }
 
   addSubj(e) {
@@ -60,8 +98,27 @@ class App extends Component{
       flashCards: flashCards,
       newCard: ["", ""]
     })
-    console.log(this.state.flashCards)
+    console.log("CARDS: " + JSON.stringify(this.state.flashCards))
     console.log(this.state.newCard)
+    console.log("post from addnewcard")
+    if (! currentUserFound){
+      fetch('/api', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'Application/JSON'
+        },
+        body: JSON.stringify({user: currentUser, state: this.state})
+      })
+    }
+    else{
+      fetch(`/api?user=${currentUser}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'Application/JSON'
+        },
+        body: JSON.stringify({user: currentUser, state: this.state})
+      })
+    }
   }
 
   subjClick(newVal){
@@ -141,9 +198,6 @@ class FlashCards extends Component{
 class Card extends Component {
   render(){
     return(
-      // <div className="card">
-      //   <h1>{this.props.value[0]}</h1>
-      // </div>
   <div className="flip-card">
     <div className="flip-card-inner">
       <div className="flip-card-front">

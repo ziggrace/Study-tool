@@ -2,6 +2,7 @@
   "name": "study-tool",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3000",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -36,6 +37,7 @@
   "devDependencies": {
     "express": "^4.17.1",
     "express-react-views": "^0.11.0",
+    "mongoose": "^5.13.2",
     "node": "^16.4.0",
     "nodemon": "^2.0.9",
     "react": "^17.0.2",
